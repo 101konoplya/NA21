@@ -5,6 +5,27 @@ var GAME = {
     background: '#E6E6FA'
 }
 
+var MENU_BUTTON = {
+    x: 450,
+    y: 45,
+    radius: 25,
+ } 
+
+ var CONTINUE_BUTTON = {
+    x: 150,
+    y: 150,
+    width: 200,
+    height: 50,
+ }
+ 
+ var RESTART_BUTTON = {
+    x: 150,
+    y: 210,
+    width: 200,
+    height: 50,
+ }
+ 
+ 
 var BALL = {
     color: "red",
     x: 100,
@@ -67,6 +88,30 @@ function drawBall() {
     canvasContext.fill();
     canvasContext.stroke();
 }
+function drawMenuButton() {
+    canvasContext.fillStyle = RACKET.color;
+    canvasContext.beginPath();
+    canvasContext.arc(MENU_BUTTON.x, MENU_BUTTON.y,  MENU_BUTTON.radius, 0, 2 * Math.PI);
+    canvasContext.stroke();
+    canvasContext.fillRect(MENU_BUTTON.x - 8 , MENU_BUTTON.y - 10, 5 ,20)
+    canvasContext.fillRect(MENU_BUTTON.x + 3 , MENU_BUTTON.y - 10, 5 ,20)
+ }
+ function drawContinueButton() {
+    canvasContext.fillStyle = RACKET.color;
+    canvasContext.fillRect(CONTINUE_BUTTON.x, CONTINUE_BUTTON.y, CONTINUE_BUTTON.width, CONTINUE_BUTTON.height);
+    canvasContext.fillStyle = "white";
+    canvasContext.fillText("Continue", 165, 185);
+}
+function drawRestartButton() {
+   canvasContext.fillStyle = RACKET.color;
+   canvasContext.fillRect(RESTART_BUTTON.x, RESTART_BUTTON.y, RESTART_BUTTON.width, RESTART_BUTTON.height);
+   canvasContext.fillStyle = "white";
+   canvasContext.fillText("Restart", 180, 245);
+}
+function drawMenu() {
+    drawContinueButton();
+    drawRestartButton();
+ }
 function drawRacket() {
     canvasContext.fillStyle = RACKET.color;
     canvasContext.fillRect(RACKET.x, RACKET.y, RACKET.width, RACKET.height);
@@ -82,6 +127,7 @@ function drawScore() {
 function drawFrame() {
     canvasContext.clearRect(0, 0, GAME.width, GAME.height);
     drawBackground();
+    drawMenuButton();
     drawBall();
     drawRacket();
     drawScore();
@@ -91,13 +137,14 @@ function FinishDraw() {
     canvasContext.strokeStyle = "black";
     canvasContext.lineWidth = 2;
     canvasContext.font = "bold 70px serif";
-    canvasContext.strokeText("ЧЕМПИОН", GAME.width/ 7.6, 280);
+    canvasContext.strokeText("VICTORY", 75, 280);
 }
 function FinishDraw1() {
     drawBackground();
     canvasContext.fillStyle = "black";
-    canvasContext.font = "80px serif";
-    canvasContext.fillText("ЛОШАРА", 75, GAME.height / 2);
+    canvasContext.lineWidth = 2;
+    canvasContext.font = "bold 80px serif";
+    canvasContext.fillText("LOSS", 145, GAME.height / 2);
 }
 
 function updateBall() {
@@ -135,7 +182,7 @@ function counter1() {
 function finish() {
     if (BALL.y + BALL.radius > GAME.height) {
         FinishDraw1(); }
-    else if (RACKET.counter > 3) {
+    else if (RACKET.counter > 1) {
         FinishDraw();}
     else requestAnimationFrame(play) 
     return true;   
