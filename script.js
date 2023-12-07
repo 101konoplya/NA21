@@ -182,7 +182,7 @@ function counter1() {
 function finish() {
     if (BALL.y + BALL.radius > GAME.height) {
         FinishDraw1(); }
-    else if (RACKET.counter > 1) {
+    else if (RACKET.counter > 9) {
         FinishDraw();}
     else requestAnimationFrame(play) 
     return true;   
